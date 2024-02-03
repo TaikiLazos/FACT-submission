@@ -1,0 +1,20 @@
+#!/bin/bash
+
+#SBATCH --partition=gpu_mig
+#SBATCH --gpus-per-node=1
+#SBATCH --job-name=claim_2
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=18
+#SBATCH --time=01:00:00
+#SBATCH --output=slurms_output/claim_2_%A.out
+
+# activate the environment
+source my_env/bin/activate
+
+python -m test.py --alphas 1.0 --betas 0.1 --gammas 0.1 --lams 1.0 --lr 0.001 --model_lr 0.0001 --hidden 128 --dataset 'nba' --test_epochs 500 --state 'ep' --result_path 'results/claim_2/claim_2_output.txt'
+python -m test.py --alphas 0.1 --betas 1.0 --gammas 0.1 --lams 10.0 --lr 0.001 --model_lr 0.0001 --hidden 128 --dataset 'pokec_n' --test_epochs 500 --state 'ep' --result_path 'results/claim_2/claim_2_output.txt'
+python -m test.py --alphas 10.0 --betas 10.0 --gammas 0.1 --lams 10.0 --lr 0.001 --model_lr 0.0001 --hidden 128 --dataset 'pokec_z' --test_epochs 500 --state 'ep' --result_path 'results/claim_2/claim_2_output.txt'
+
+python -m test.py --alphas 1.0 --betas 0.1 --gammas 0.1 --lams 1.0 --lr 0.001 --model_lr 0.0001 --hidden 128 --dataset 'nba' --test_epochs 500 --state 'fm' --result_path 'results/claim_2/claim_2_output.txt'
+python -m test.py --alphas 0.1 --betas 1.0 --gammas 0.1 --lams 10.0 --lr 0.001 --model_lr 0.0001 --hidden 128 --dataset 'pokec_n' --test_epochs 500 --state 'fm' --result_path 'results/claim_2/claim_2_output.txt'
+python -m test.py --alphas 10.0 --betas 10.0 --gammas 0.1 --lams 10.0 --lr 0.001 --model_lr 0.0001 --hidden 128 --dataset 'pokec_z' --test_epochs 500 --state 'fm' --result_path 'results/claim_2/claim_2_output.txt'

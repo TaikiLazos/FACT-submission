@@ -1,0 +1,6 @@
+Result for claim 3: dataset = NBA
+--------------------------------------------------
+Result for claim 3: dataset = POKEC_N
+--------------------------------------------------
+Result for claim 3: dataset = POKEC_Z
+--------------------------------------------------
