@@ -1,14 +1,13 @@
 # FACT-AI
-Repository containing code for the FACT-AI project
+Repository containing code for submission of the FACT-AI project
 
-# Running on experiment Snellius (temporary)
+# Training and evaluating the model
 
-First, load the required modules:
+First, if using Snellius, load in the required modules:
 
 ```
 module load 2022
-module load IPython/8.5.0-GCCcore-11.3.0 # Python/3.10.4 instead works as well
-module load CUDA/11.7.0 # 12.1.0 should also work
+module load IPython/8.5.0-GCCcore-11.3.0
 ```
 
 create a virtual environment and install the required packages:
@@ -16,15 +15,9 @@ create a virtual environment and install the required packages:
 ```
 virtualenv my_env
 source my_env/bin/activate
+module purge # if using Snellius
 pip install -r requirements.txt
 ```
-
-There is a slight inconvinience with torch_scatter module. So please run the following command line to add torch_scatter module to the environment.
-
-```
-pip install torch_scatter -f https://pytorch-geometric.com/whl/torch-${TORCH}+${CUDA}.html
-```
-
 
 The command lines to reproduce our results on Slurm cluster are as follows:
 
@@ -88,5 +81,3 @@ Use the following flags to modify the training/evaluation loop:
     - `--use_best_params`: Ignore input arguments, use best hyperparameters. (Flag)
     - `--result_path`: Path to save the results (String).
     - `--claim`: Specify the claim to reproduce. (Int) By default, runs claim 1 for Pokec and NBA, and claim 4 for Citeseer, Cora, and PubMed.
-
-

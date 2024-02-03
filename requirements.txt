@@ -1,4 +1,5 @@
-torch
+--find-links https://data.pyg.org/whl/torch-2.1.0+cpu.html
+torch==2.1.2
 torch_geometric
 pyro-ppl
 scipy
@@ -12,10 +13,16 @@ gdown
 shap  
 IPython  
 tqdm  
-rdkit-pypi  
+rdkit-pypi
+matplotlib
 pandas  
 sympy  
 pyscf>=1.7.6  
 hydra-core 
+pyg_lib
+torch_scatter
+torch_sparse
+torch_cluster
+torch_spline_conv
 tensorboard
 seaborn
