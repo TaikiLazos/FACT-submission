@@ -1,0 +1,92 @@
+{
+    "nba":
+    {
+        "hyperparameters": {
+            "alpha": 1.0,
+            "beta": 0.1,
+            "gamma": 0.1,
+            "lam": 1.0,
+            "lr": 0.001,
+            "model_lr": 0.0001,
+            "hidden": 128,
+            "dataset": "nba",
+            "model": "Graphair",
+            "epochs": 500
+        }
+    },
+    "pokec_n":
+    {
+        "hyperparameters": {
+            "alpha": 10.0,
+            "beta": 0.1,
+            "gamma": 1.0,
+            "lam": 0.1,
+            "lr": 0.001,
+            "model_lr": 0.0001,
+            "hidden": 128,
+            "dataset": "pokec_n",
+            "model": "Graphair",
+            "epochs": 500
+        }
+    },
+    "pokec_z":
+    {
+        "hyperparameters": {
+            "alpha": 10.0,
+            "beta": 10.0,
+            "gamma": 0.1,
+            "lam": 10.0,
+            "lr": 0.001,
+            "model_lr": 0.0001,
+            "hidden": 128,
+            "dataset": "pokec_z",
+            "model": "Graphair",
+            "epochs": 500
+        }
+    },
+    "citeseer":
+    {
+        "hyperparameters": {
+            "alpha": 10.0,
+            "beta": 10.0,
+            "gamma": 0.1,
+            "lam": 10.0,
+            "lr": 0.005,
+            "model_lr": 0.0001,
+            "hidden": 128,
+            "dataset": "citeseer",
+            "model": "LPGraphair",
+            "epochs":200
+        }
+    },
+    "cora":
+    {
+        "hyperparameters": {
+            "alpha": 10.0,
+            "beta": 10.0,
+            "gamma": 0.1,
+            "lam": 10.0,
+            "lr": 0.005,
+            "model_lr": 0.0001,
+            "hidden": 128,
+            "dataset": "cora",
+            "model": "LPGraphair",
+            "epochs":200
+        }
+    },
+    "pubmed":
+    {
+        "hyperparameters": {
+            "alpha": 10.0,
+            "beta": 10.0,
+            "gamma": 0.1,
+            "lam": 0.1,
+            "lr": 0.005,
+            "model_lr": 0.0001,
+            "hidden": 128,
+            "dataset": "pubmed",
+            "model": "LPGraphair",
+            "epochs":200
+        }
+    }
+}

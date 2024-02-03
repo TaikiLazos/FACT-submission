@@ -12,6 +12,7 @@ from models.fairgraph.utils.utils import weighted_homophily, scipysp_to_pytorchs
 import seaborn as sns
 import numpy as np
 import time
+from utils import set_seed
 
 start = time.process_time()
 
@@ -20,7 +21,7 @@ start = time.process_time()
 # pokec-n, smooth fair 15, original 37
 
 model = 'Graphair'
-datasets = {'nba': {'dataset': NBA(),
+datasets = {'nba': {'dataset': None,
                   'epochs': 500,
                   'test_epochs': 500, 
                   'batch_size': 1000,
@@ -34,7 +35,7 @@ datasets = {'nba': {'dataset': NBA(),
                   'yrange': [0.325, 0.525],
                   'smooth': [13, 13]
                   },
-        'pokec_n': {'dataset': POKEC(dataset_sample='pokec_n'),
+        'pokec_n': {'dataset': None,
                   'epochs': 500,
                   'test_epochs': 500, 
                   'batch_size': 1000,
@@ -48,7 +49,7 @@ datasets = {'nba': {'dataset': NBA(),
                   'yrange': [0.1, 0.8],
                   'smooth': [15, 37]
                   },
-        'pokec_z': {'dataset': POKEC(dataset_sample='pokec_z'),
+        'pokec_z': {'dataset': None,
                   'epochs': 500,
                   'test_epochs': 500, 
                   'batch_size': 1000,
@@ -74,6 +75,13 @@ run_fairgraph = run()
 
 with open(filename, 'w', encoding='utf-8') as f:
     for data_name, params in datasets.items():
+        set_seed()
+        if data_name == 'nba':
+            params['dataset'] = NBA()
+        elif data_name == 'pokec_n':
+            params['dataset'] = POKEC(dataset_sample='pokec_n')
+        else:
+            params['dataset'] = POKEC(dataset_sample='pokec_z')
         f.write(f"Result for claim 3: dataset = {data_name.upper()}" +'\n')
         f.write('-' * 50 + '\n')
         f.flush()
