@@ -523,7 +523,6 @@ class graphair(nn.Module):
             dp_list.append(best_dp_test)
             eo_list.append(best_eo_test)
 
-        # print("Homophily coefficients: ".format(sensitive_homophily_coefficient(adj, sens)))
 
         print(
             "Avg results:",

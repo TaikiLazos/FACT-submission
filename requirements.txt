@@ -18,3 +18,4 @@ sympy
 pyscf>=1.7.6  
 hydra-core 
 tensorboard
+seaborn
