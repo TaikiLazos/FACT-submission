@@ -18,7 +18,7 @@ class run():
         pass
 
     def run(self,device,dataset,model='Graphair',epochs=10_000,test_epochs=1_000,batch_size=1_000,
-            lr=1e-4, model_lr=1e-4, hidden=128, weight_decay=1e-5, alpha = 20, beta = 0.9, gamma = 0.7, lam = 1):
+            lr=1e-4, model_lr=1e-4, hidden=128, weight_decay=1e-5, alpha = 20, beta = 0.9, gamma = 0.7, lam = 1, state='normal'):
         r""" This method runs training and evaluation for a fairgraph model on the given dataset.
         Check :obj:`examples.fairgraph.Graphair.run_graphair_nba.py` for examples on how to run the Graphair model.
 
@@ -60,7 +60,7 @@ class run():
 
         # generate model
         if model=='Graphair':
-            aug_model = aug_module(features, n_hidden=64, temperature=1).to(device)
+            aug_model = aug_module(features, n_hidden=64, temperature=1, state = state).to(device)
             f_encoder = GCN_Body(in_feats = features.shape[1], n_hidden = 64, out_feats = 64, dropout = 0.1, nlayer = 2).to(device)
             sens_model = GCN(in_feats = features.shape[1], n_hidden = 64, out_feats = 64, nclass = 1).to(device)
             classifier_model = Classifier(input_dim=64,hidden_dim=hidden)
