@@ -78,6 +78,5 @@ Use the following flags to modify the training/evaluation loop:
     - `--dataset`: Name of the dataset to use (String). Available choices: "pokec_z", "pokec_n", "nba", "citeseer", "cora", "pubmed".
     - `--wd`: Weight decay, (Float).
     - `--lp`: Use link prediction Graphair variant. (Flag)
-    - `--use_best_params`: Ignore input arguments, use best hyperparameters. (Flag)
     - `--result_path`: Path to save the results (String).
-    - `--claim`: Specify the claim to reproduce. (Int) By default, runs claim 1 for Pokec and NBA, and claim 4 for Citeseer, Cora, and PubMed.
+    - `--state`: Specify the state of the model to reproduce for claim 2. (Int) By default, normal. 'ep' disables Edge Perturbation and 'fm' disables Feature Masking.
