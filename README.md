@@ -79,4 +79,4 @@ Use the following flags to modify the training/evaluation loop:
     - `--wd`: Weight decay, (Float).
     - `--lp`: Use link prediction Graphair variant. (Flag)
     - `--result_path`: Path to save the results (String).
-    - `--state`: Specify the state of the model to reproduce for claim 2. (Int) By default, normal. 'ep' disables Edge Perturbation and 'fm' disables Feature Masking.
+    - `--state`: Specify the state of the model to reproduce for claim 2. (String) By default, normal. 'ep' disables Edge Perturbation and 'fm' disables Feature Masking.
