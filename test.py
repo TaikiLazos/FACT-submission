@@ -33,13 +33,12 @@ hyperparameters = {
     'beta': args.betas,
     'gamma': args.gammas,
     'lam': args.lams,
-    'lr': [args.lr],
-    'model_lr': [args.model_lr],
-    'hidden': [args.hidden]
+    'lr': args.lr,
+    'model_lr': args.model_lr,
+    'hidden': args.hidden
 }
 
 writer = create_writer(args.dataset, MODEL, args.epochs, hyperparameters)
-print(hyperparameters.values())
 
 for idx, params in enumerate(product(*hyperparameters.values())):
     set_seed(20)
@@ -55,7 +54,7 @@ for idx, params in enumerate(product(*hyperparameters.values())):
     results = run_fairgraph.run(device, dataset=dataset, model=MODEL,
                                 epochs=args.epochs, test_epochs=args.test_epochs,
                                 batch_size=1000, lr=lr, model_lr=model_lr, weight_decay=args.wd,
-                                hidden=hidden, alpha=alpha, beta=beta, gamma=gamma, lam=lam)
+                                hidden=hidden, alpha=alpha, beta=beta, gamma=gamma, lam=lam, state=args.state)
 
     hparams = {
             'alpha': alpha,
