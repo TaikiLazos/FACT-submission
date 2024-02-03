@@ -18,7 +18,8 @@ class run():
         pass
 
     def run(self,device,dataset,model='Graphair',epochs=10_000,test_epochs=1_000,batch_size=1_000,
-            lr=1e-4, model_lr=1e-4, hidden=128, weight_decay=1e-5, alpha = 20, beta = 0.9, gamma = 0.7, lam = 1, state='normal'):
+            lr=1e-4, model_lr=1e-4, hidden=128, weight_decay=1e-5, alpha = 20, beta = 0.9, gamma = 0.7, lam = 1,
+            disable_ep = False, disable_fm = False):
         r""" This method runs training and evaluation for a fairgraph model on the given dataset.
         Check :obj:`examples.fairgraph.Graphair.run_graphair_nba.py` for examples on how to run the Graphair model.
 
@@ -57,30 +58,39 @@ class run():
         sens = dataset.sens
         adj = dataset.adj
         idx_sens = dataset.idx_sens_train
+        
+        if dataset_name == 'Citeseer':
+            nclasses = 6
+        elif dataset_name == 'Cora':
+            nclasses = 7
+        elif dataset_name == 'PubMed':
+            nclasses = 3
+        else:
+            nclasses = 1
 
         # generate model
         if model=='Graphair':
-            aug_model = aug_module(features, n_hidden=64, temperature=1, state = state).to(device)
+            aug_model = aug_module(features, n_hidden=64, temperature=1).to(device)
             f_encoder = GCN_Body(in_feats = features.shape[1], n_hidden = 64, out_feats = 64, dropout = 0.1, nlayer = 2).to(device)
             sens_model = GCN(in_feats = features.shape[1], n_hidden = 64, out_feats = 64, nclass = 1).to(device)
             classifier_model = Classifier(input_dim=64,hidden_dim=hidden)
             model = graphair(aug_model=aug_model,f_encoder=f_encoder,sens_model=sens_model,classifier_model=classifier_model, lr=lr, model_lr = model_lr, weight_decay=weight_decay,
                              batch_size=batch_size,dataset=dataset_name,
-                             alpha = alpha, beta = beta, gamma = gamma, lam = lam).to(device)
+                             alpha = alpha, beta = beta, gamma = gamma, lam = lam, disable_ep = disable_ep, disable_fm = disable_fm).to(device)
         elif model == 'LPGraphair':
             aug_model = lp_aug_module(features, n_hidden=64, temperature=1).to(device)
-            f_encoder = lp_GCN_Body(in_feats = features.shape[1], n_hidden = 64, out_feats = 64, dropout = 0.1, nlayer = 2).to(device)
-            sens_model = lp_GCN(in_feats = features.shape[1], n_hidden = 64, out_feats = 64, nclass = 1).to(device)
+            f_encoder = lp_GCN_Body(in_feats = features.shape[1], n_hidden = 64, out_feats = 64, dropout = 0.1, nlayer = 3).to(device)
+            sens_model = lp_GCN(in_feats = features.shape[1], n_hidden = 64, out_feats = 64, nclass = nclasses).to(device)
             classifier_model = lp_Classifier(input_dim=64,hidden_dim=hidden)
-            model = lp_graphair(aug_model=aug_model,f_encoder=f_encoder,sens_model=sens_model,classifier_model=classifier_model, lr=lr,weight_decay=weight_decay,
+            model = lp_graphair(aug_model=aug_model,f_encoder=f_encoder,sens_model=sens_model,classifier_model=classifier_model, lr=lr, model_lr = model_lr, weight_decay=weight_decay,
                              batch_size=batch_size,dataset=dataset_name,
                              alpha = alpha, beta = beta, gamma = gamma, lam = lam).to(device)
-        
+
         st_time = time.time()
         if dataset.batch:
             model.fit_batch(epochs=epochs,adj=adj, x=features,sens=sens,idx_sens = idx_sens, warmup=0, adv_epoches=1)
         else:
-            model.fit_whole(epochs=epochs,adj=adj, x=features,sens=sens,idx_sens = idx_sens, warmup=50, adv_epoches=1)
+            model.fit_whole(epochs=epochs,adj=adj, x=features,sens=sens,idx_sens = idx_sens, warmup=0, adv_epoches=1)
         print("Training time: ", time.time() - st_time)
         test_results = model.test(adj=adj,features=features,labels=dataset.labels,epochs=test_epochs,idx_train=dataset.idx_train,idx_val=dataset.idx_val,idx_test=dataset.idx_test,sens=sens)
         for metric, value in test_results.items():

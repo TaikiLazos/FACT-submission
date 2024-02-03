@@ -33,12 +33,19 @@ hyperparameters = {
     'beta': args.betas,
     'gamma': args.gammas,
     'lam': args.lams,
-    'lr': [args.lr],
-    'model_lr': [args.model_lr],
-    'hidden': [args.hidden]
+    'lr': args.lr,
+    'model_lr': args.model_lr,
+    'hidden': args.hidden
 }
 
 writer = create_writer(args.dataset, MODEL, args.epochs, hyperparameters)
+
+if args.state == 'fm':
+    disable_fm, disable_ep = True, False
+elif args.state == 'ep':
+    disable_fm, disable_ep = False, True
+else:
+    disable_fm, disable_ep = False, False
 
 for idx, params in enumerate(product(*hyperparameters.values())):
     set_seed(20)
@@ -54,7 +61,7 @@ for idx, params in enumerate(product(*hyperparameters.values())):
     results = run_fairgraph.run(device, dataset=dataset, model=MODEL,
                                 epochs=args.epochs, test_epochs=args.test_epochs,
                                 batch_size=1000, lr=lr, model_lr=model_lr, weight_decay=args.wd,
-                                hidden=hidden, alpha=alpha, beta=beta, gamma=gamma, lam=lam, state=args.state)
+                                hidden=hidden, alpha=alpha, beta=beta, gamma=gamma, lam=lam, disable_ep=disable_ep, disable_fm=disable_fm)
 
     hparams = {
             'alpha': alpha,
@@ -88,7 +95,7 @@ for idx, params in enumerate(product(*hyperparameters.values())):
         f.flush()
         end = time.process_time()
         f.write(f'The code needed {(end - start) / 60} minutes to run\n')
-        f.write(f'The maximum amount of memory used was {torch.cuda.max_memory_allocated() / (1024 ** 3)} GB.')
+        f.write(f'The maximum amount of memory used was {torch.cuda.max_memory_allocated() / (1024 ** 3)} GB.\n')
         f.flush()
 
 writer.close()

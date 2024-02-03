@@ -41,16 +41,18 @@ def parse_arguments():
     parser.add_argument("--epochs", type=int, default=500,
                         help="Number of epochs")
     parser.add_argument("--test_epochs", type=int, default=500,
-                        help="Number of test epochs for classifier")
-    parser.add_argument("--lr", type=float, default=1e-4,
-                        help="Learning rate")
+                        help="Number of test epochs")
+    parser.add_argument("--dataset", type=str, default="pokec_z",
+                        choices=['pokec_z', 'pokec_n', 'nba', 'citeseer', 'cora', 'pubmed'],
+                        help="Dataset name")
+    parser.add_argument("--model_lr", nargs="+", type=float, default=[1e-4],
+                        help="model learning rate")
+    parser.add_argument("--lr", nargs="+", type=float, default=[1e-3],
+                        help="classifier learning rate")
     parser.add_argument("--wd", type=float, default=1e-5,
                         help="Weight decay")
-    parser.add_argument("--dataset", type=str, default="nba",
-                        choices=['pockec_z', 'pockec_n', 'nba', 'citeseer', 'cora', 'pubmed'],
-                        help="Dataset name")
-    parser.add_argument("--model_lr", type=float, default=0.0001)
-    parser.add_argument("--hidden", type=int, default=128)
+    parser.add_argument("--hidden", nargs="+", type=int, default=[128],
+                        help="Classifier hidden size")
     parser.add_argument("--lp", action="store_true", default=False,
                         help="Specify whether to use link prediction variant or not")
     parser.add_argument("--result_path", type=str, default='results',

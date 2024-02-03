@@ -88,6 +88,8 @@ class graphair(nn.Module):
         batch_size=None,
         num_hidden=64,
         num_proj_hidden=64,
+        disable_ep=False,
+        disable_fm = False
     ):
         super(graphair, self).__init__()
         self.aug_model = aug_model
@@ -99,6 +101,9 @@ class graphair(nn.Module):
         self.gamma = gamma
         self.dataset = dataset
         self.lam = lam
+        
+        self.disable_ep = disable_ep
+        self.disable_fm = disable_fm
 
         self.criterion_sens = nn.BCEWithLogitsLoss()
         self.criterion_cont = nn.CrossEntropyLoss()
@@ -224,6 +229,11 @@ class graphair(nn.Module):
             adj_aug, x_aug, adj_logits = self.aug_model(
                 adj, x, adj_orig=adj_orig.cuda()
             )
+            
+            if self.disable_fm:
+                x_aug = x
+            if self.disable_ep:
+                adj_aug = adj
 
             ### extract node representations
             h = self.projection(self.f_encoder(adj, x))
@@ -356,6 +366,7 @@ class graphair(nn.Module):
                         sub_adj, data.x, adj_orig=sub_adj_dense
                     )
 
+
                     edge_loss = norm_w * F.binary_cross_entropy_with_logits(
                         adj_logits, sub_adj_dense
                     )
@@ -387,6 +398,11 @@ class graphair(nn.Module):
                 adj_aug, x_aug, adj_logits = self.aug_model(
                     sub_adj, data.x, adj_orig=sub_adj_dense
                 )
+                    
+                if self.disable_fm:
+                    x_aug = data.x
+                if self.disable_ep:
+                    adj_aug = sub_adj
 
                 ### extract node representations
                 h = self.projection(self.f_encoder(sub_adj, data.x))
@@ -523,6 +539,7 @@ class graphair(nn.Module):
             dp_list.append(best_dp_test)
             eo_list.append(best_eo_test)
 
+        # print("Homophily coefficients: ".format(sensitive_homophily_coefficient(adj, sens)))
 
         print(
             "Avg results:",

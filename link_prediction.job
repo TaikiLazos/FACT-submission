@@ -11,6 +11,6 @@
 # activate the environment
 source my_env/bin/activate
 
-python -m test.py --alphas 0.1 --betas 0.1 --gammas 0.1 --lams 1.0 --epochs 200 --lr 0.005 --model_lr 0.0001 --hidden 128 --dataset 'citeseer' --lp --test_epochs 500 --result_path 'results/link_prediction/link_prediction_output.txt'
-python -m test.py --alphas 10.0 --betas 10.0 --gammas 0.1 --lams 10.0 --epochs 200 --lr 0.005 --model_lr 0.0001 --hidden 128 --dataset 'cora' --lp --test_epochs 500 --result_path 'results/link_prediction/link_prediction_output.txt'
-python -m test.py --alphas 10.0 --betas 10.0 --gammas 0.1 --lams 0.1 --epochs 200 --lr 0.005 --model_lr 0.0001 --hidden 128 --dataset 'pubmed' --lp --test_epochs 500 --result_path 'results/link_prediction/link_prediction_output.txt'
+python -m test.py --alphas 0.1 --betas 0.1 --gammas 0.1 --lams 1.0 --epochs 200 --lr 0.005 --model_lr 0.0001 --hidden 128 --dataset 'citeseer' --lp --test_epochs 500 --result_path "results/link_prediction/link_prediction_output_$SLURM_JOB_ID.txt"
+python -m test.py --alphas 10.0 --betas 10.0 --gammas 0.1 --lams 10.0 --epochs 200 --lr 0.005 --model_lr 0.0001 --hidden 128 --dataset 'cora' --lp --test_epochs 500 --result_path "results/link_prediction/link_prediction_output_$SLURM_JOB_ID.txt"
+python -m test.py --alphas 10.0 --betas 10.0 --gammas 0.1 --lams 0.1 --epochs 200 --lr 0.005 --model_lr 0.0001 --hidden 128 --dataset 'pubmed' --lp --test_epochs 500 --result_path "results/link_prediction/link_prediction_output_$SLURM_JOB_ID.txt"

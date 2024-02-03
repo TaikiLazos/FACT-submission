@@ -84,4 +84,3 @@ class MLPX(torch.nn.Module):
 
     def forward(self, h):
         return self.projection(h)
-
