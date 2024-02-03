@@ -162,10 +162,10 @@ cython_debug/
 # in case someone clones the repo into this folder
 DIG/
 archive/
-# checkpoint/model_checkpoints/*
-# checkpoint/POKEC_N/*
-# checkpoint/POKEC_Z/*
-# checkpoint/PubMed/*
+checkpoint/model_checkpoints/*
+checkpoint/POKEC_N/*
+checkpoint/POKEC_Z/*
+checkpoint/PubMed/*
 my_env/
 .history/
 models/fairgraph/dataset/graphsaint/cython_sampler.cpp
