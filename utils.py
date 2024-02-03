@@ -105,3 +105,45 @@ def create_writer(
     ).replace("\\", "/")
     
     return SummaryWriter(log_dir=log_dir)
+
+
+def save_result_in_txt(result_path, dataset, state, results, start, lp):
+    if lp == False:    
+        with open(result_path, 'a', encoding='utf-8') as f:
+            title = f"Result for dataset = {dataset.upper()}" if state == 'normal' else f"Result for dataset = {dataset.upper()}, state = w/o {state.upper()}"
+            f.write(title +'\n')
+            f.write('-' * 50 + '\n')
+            f.flush()
+
+            f.write(f"Accuracy ([acc, std]): {results['accuracy']}\n")
+            f.write(f"DP ([dp, std]): {results['dp']}\n")
+            f.write(f"EO ([eo, std]): {results['eo']}\n")
+
+            f.write('-' * 50 + '\n')
+            f.write('\n'*2)
+            f.flush()
+            end = time.process_time()
+            f.write(f'The code needed {(end - start) / 60} minutes to run\n')
+            f.write(f'The maximum amount of memory used was {torch.cuda.max_memory_allocated() / (1024 ** 3)} GB.\n')
+            f.flush()
+    else:
+        with open(result_path, 'a', encoding='utf-8') as f:
+            title = f"Result for dataset = {dataset.upper()}" if state == 'normal' else f"Result for dataset = {dataset.upper()}, state = w/o {state.upper()}"
+            f.write(title +'\n')
+            f.write('-' * 50 + '\n')
+            f.flush()
+            
+            f.write(f"Accuracy ([acc, std]): {results['accuracy']}\n")
+            f.write(f"AUC ([auc, std]): {results['AUC']}\n")
+            f.write(f"DP-mixed ([dp-m, std]): {results['dp-mixed']}\n")
+            f.write(f"EO-mixed ([eo-m, std]): {results['eo-mixed']}\n")
+            f.write(f"DP-sub ([dp-s, std]): {results['dp-sub']}\n")
+            f.write(f"EO-sub ([eo-s, std]): {results['eo-sub']}\n")
+
+            f.write('-' * 50 + '\n')
+            f.write('\n'*2)
+            f.flush()
+            end = time.process_time()
+            f.write(f'The code needed {(end - start) / 60} minutes to run\n')
+            f.write(f'The maximum amount of memory used was {torch.cuda.max_memory_allocated() / (1024 ** 3)} GB.\n')
+            f.flush()

@@ -52,4 +52,41 @@ Link Prediction -> Results of Graphair on link prediction task on Citeseer, Cora
 sbatch link_prediction.job
 ```
 
+# Running model with own arguments
+
+To test the model using your own hyperparameters, you can run the file in terminal using the following command:
+
+```
+python -m main --flag1 --flag2 ... --flag_n
+```
+
+Use the following flags to modify the training/evaluation loop:
+
+- For the following flags, you can provide multiple values in order to rerun the model with each value, useful for grid search:
+
+    - `--alphas`: Alpha value for training (Float).
+    - `--betas`: Beta value for training (Float).
+    - `--gammas`: Gamma value for training (Float).
+    - `--lams`: Lambda value for training (Float).
+    - `--epochs`: Number of epochs for training (Int).
+    - `--model_lr`: Learning rate for the model (Float).
+    - `--lr`: Learning rate for the classifier (Float).
+    - `--hidden`: Hidden size for the classifier (Int).
+
+- Provided as follows:
+
+```
+--flag *val1*  ... *val_n*
+```
+
+- For the following flags, only one value can be supplied:
+
+    - `--test_epochs`: Number of epochs for testing (Int).
+    - `--dataset`: Name of the dataset to use (String). Available choices: "pokec_z", "pokec_n", "nba", "citeseer", "cora", "pubmed".
+    - `--wd`: Weight decay, (Float).
+    - `--lp`: Use link prediction Graphair variant. (Flag)
+    - `--use_best_params`: Ignore input arguments, use best hyperparameters. (Flag)
+    - `--result_path`: Path to save the results (String).
+    - `--claim`: Specify the claim to reproduce. (Int) By default, runs claim 1 for Pokec and NBA, and claim 4 for Citeseer, Cora, and PubMed.
+
 

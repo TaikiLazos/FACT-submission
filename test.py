@@ -5,7 +5,7 @@ from itertools import product
 import torch
 from models.fairgraph.method import run
 from models.fairgraph.dataset import POKEC, NBA, Citeseer, Cora, PubMed
-from utils import set_seed, parse_arguments, create_writer
+from utils import set_seed, parse_arguments, create_writer, save_result_in_txt
 
 start = time.process_time()
 # Parse command line arguments
@@ -79,23 +79,7 @@ for idx, params in enumerate(product(*hyperparameters.values())):
     metrics = {metric: value[0] for metric, value in results.items() if metric not in ['homophily', 'spearman']}
     results = {metric: value for metric, value in results.items() if metric not in ['homophily', 'spearman']}
     writer.add_hparams(hparams, metrics)
-    
-    with open(args.result_path, 'a', encoding='utf-8') as f:
-        title = f"Result for dataset = {args.dataset.upper()}" if args.state == 'normal' else f"Result for dataset = {args.dataset.upper()}, state = w/o {args.state.upper()}"
-        f.write(title +'\n')
-        f.write('-' * 50 + '\n')
-        f.flush()
 
-        f.write(f"Accuracy ([acc, std]): {results['accuracy']}\n")
-        f.write(f"DP ([dp, std]): {results['dp']}\n")
-        f.write(f"EO ([eo, std]): {results['eo']}\n")
-
-        f.write('-' * 50 + '\n')
-        f.write('\n'*2)
-        f.flush()
-        end = time.process_time()
-        f.write(f'The code needed {(end - start) / 60} minutes to run\n')
-        f.write(f'The maximum amount of memory used was {torch.cuda.max_memory_allocated() / (1024 ** 3)} GB.\n')
-        f.flush()
+    save_result_in_txt(args.result_path, args.dataset, args.state, results, start, args.lp)
 
 writer.close()
