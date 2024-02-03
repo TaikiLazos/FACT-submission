@@ -33,9 +33,9 @@ hyperparameters = {
     'beta': args.betas,
     'gamma': args.gammas,
     'lam': args.lams,
-    'lr': args.lr,
-    'model_lr': args.model_lr,
-    'hidden': args.hidden
+    'lr': [args.lr],
+    'model_lr': [args.model_lr],
+    'hidden': [args.hidden]
 }
 
 writer = create_writer(args.dataset, MODEL, args.epochs, hyperparameters)

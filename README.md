@@ -19,6 +19,13 @@ source my_env/bin/activate
 pip install -r requirements.txt
 ```
 
+There is a slight inconvinience with torch_scatter module. So please run the following command line to add torch_scatter module to the environment.
+
+```
+pip install torch_scatter -f https://pytorch-geometric.com/whl/torch-${TORCH}+${CUDA}.html
+```
+
+
 The command lines to reproduce our results on Slurm cluster are as follows:
 
 Claim 1 -> Accuracy, DP, and EO of Graphair with our best parameters on NBA, Pokec-n, and Pokec-z can be found in results/claim_1/claim_1_output.txt
