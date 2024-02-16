@@ -3,19 +3,11 @@ Repository containing code of "Reproducibility Study Of Learning Fair Graph Repr
 
 # Training and evaluating the model
 
-First, if using Snellius, load in the required modules:
-
-```
-module load 2022
-module load IPython/8.5.0-GCCcore-11.3.0
-```
-
 create a virtual environment and install the required packages:
 
 ```
 virtualenv my_env
 source my_env/bin/activate
-module purge # if using Snellius
 pip install -r requirements.txt
 ```
 
