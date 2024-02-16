@@ -1,5 +1,5 @@
-# FACT-AI
-Repository containing code for submission of the FACT-AI project
+# Reproducibility Study Of Learning Fair Graph Representations Via Automated Data Augmentations
+Repository containing code of "Reproducibility Study Of Learning Fair Graph Representations Via Automated Data Augmentations" for TMLR submission.
 
 # Training and evaluating the model
 
