@@ -42,7 +42,7 @@ sbatch link_prediction.job
 To test the model using your own hyperparameters, you can run the file in terminal using the following command:
 
 ```
-python -m main --flag1 --flag2 ... --flag_n
+python -m test --flag1 --flag2 ... --flag_n
 ```
 
 Use the following flags to modify the training/evaluation loop:
