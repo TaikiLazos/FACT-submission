@@ -1,5 +1,5 @@
 # Reproducibility Study Of Learning Fair Graph Representations Via Automated Data Augmentations
-Repository containing code of "Reproducibility Study Of Learning Fair Graph Representations Via Automated Data Augmentations" for TMLR submission.
+Repository containing code of "Reproducibility Study Of Learning Fair Graph Representations Via Automated Data Augmentations" for TMLR submission. The reproduced paper is written by Hongyi Ling, Zhimeng Jiang, Youzhi Luo, Shuiwang Ji, Na Zou.
 
 # Training and evaluating the model
 
